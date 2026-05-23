@@ -1,0 +1,38 @@
+## Interface: 120001, 120005, 120000
+## Author: JetUI
+## Version: 1.0
+## Title: |cff00ff96JetUI|r
+## Notes: JetUI Installer
+## DefaultState: enabled
+## SavedVariables: JetUIDB
+
+## X-Details: 1.0
+## X-Plater: 1.0
+## X-Grid2: 1.0
+## X-UnhaltedUnitFrames: 1.0
+## X-BigWigs: 1.0
+## X-BuffReminders: 1.0
+## X-AyijeCDM: 1.0
+## X-SkironCDM: 1.0
+## X-MinimapStats: 1.0
+
+JetUI.lua
+UI\Installer.lua
+AddonData\Details.lua
+AddonData\Plater.lua
+AddonData\Grid2.lua
+AddonData\UnhaltedUnitFrames.lua
+AddonData\BigWigs.lua
+AddonData\BuffReminders.lua
+AddonData\AyijeCDM.lua
+AddonData\SkironCDM.lua
+AddonData\MinimapStats.lua
+AddonImports\Details.lua
+AddonImports\Plater.lua
+AddonImports\Grid2.lua
+AddonImports\UnhaltedUnitFrames.lua
+AddonImports\BigWigs.lua
+AddonImports\BuffReminders.lua
+AddonImports\AyijeCDM.lua
+AddonImports\SkironCDM.lua
+AddonImports\MinimapStats.lua
