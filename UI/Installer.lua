@@ -131,7 +131,8 @@ local function BuildFrame()
         lbl:SetTextColor(C.accent[1], C.accent[2], C.accent[3], C.accent[4])
         lbl:SetPoint("CENTER")
         lbl:SetText(label)
-        btn.label = lbl: animate border to accent color over 0.18s
+        btn.label = lbl
+        -- Hover: animate border to accent color over 0.18s
         local hoverProgress = 0
         btn:SetScript("OnUpdate", function(self, elapsed)
             local target = self.isHovered and 1 or 0
