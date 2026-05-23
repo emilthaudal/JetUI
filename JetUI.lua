@@ -98,10 +98,10 @@ end
 function JetUI:BuildInstallPages(addonTags, forceImport)
     local pages = {}
 
-    -- Welcome page
+    -- Welcome page (no sidebarLabel = not shown in sidebar)
     table.insert(pages, {
         title  = "JetUI Installer",
-        status = "Press Next to begin installing your profiles.",
+        status = "Select an addon from the list on the right, then click Import.",
     })
 
     -- CDM conflict warning
@@ -120,9 +120,10 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
                 -- skip
             else
                 table.insert(pages, {
-                    title  = tag,
-                    status = forceImport and "Ready to import." or "Activating profile.",
-                    import = forceImport and function()
+                    title        = tag,
+                    sidebarLabel = tag,
+                    status       = forceImport and "Click Import to install this profile." or "Click Import to activate this profile.",
+                    import       = forceImport and function()
                         local fn = JetUI["Import" .. tag]
                         if fn then fn(JetUI, true) end
                     end or function()
@@ -133,9 +134,10 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
             end
         else
             table.insert(pages, {
-                title  = tag,
-                status = forceImport and "Ready to import." or "Activating profile.",
-                import = function()
+                title        = tag,
+                sidebarLabel = tag,
+                status       = forceImport and "Click Import to install this profile." or "Click Import to activate this profile.",
+                import       = function()
                     local fn = JetUI["Import" .. tag]
                     if fn then fn(JetUI, forceImport) end
                 end,
@@ -143,10 +145,11 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
         end
     end
 
-    -- Finish page
+    -- Done page
     table.insert(pages, {
-        title  = "Done!",
-        status = "All profiles installed. Click Finish to reload.",
+        title  = "All Done!",
+        status = "All profiles installed.\nClick Reload UI to apply changes.",
+        isDone = true,
     })
 
     return pages

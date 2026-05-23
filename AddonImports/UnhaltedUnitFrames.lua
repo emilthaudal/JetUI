@@ -21,7 +21,5 @@ function JetUI:ImportUnhaltedUnitFrames(forceImport)
             UUFDB.profileKeys[charName] = prefix .. "JetUI DPS"
         end
         JetUIDB.InstalledVersions["UnhaltedUnitFrames"] = C_AddOns.GetAddOnMetadata("JetUI", "X-UnhaltedUnitFrames")
-        -- UUF requires a reload after import
-        C_UI.Reload()
     end
 end

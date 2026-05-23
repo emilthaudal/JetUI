@@ -15,7 +15,5 @@ function JetUI:ImportNorskenUI(forceImport)
             NorskenUIAPI:SetProfile(profileName)
         end
         JetUIDB.InstalledVersions["NorskenUI"] = C_AddOns.GetAddOnMetadata("JetUI", "X-NorskenUI")
-        -- NorskenUI requires a reload after import
-        C_UI.Reload()
     end
 end

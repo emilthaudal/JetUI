@@ -9,6 +9,10 @@ function JetUI:ImportGrid2(forceImport)
             print("|cff00ff96JetUI|r Grid2: Grid2ProfileAPI not available.")
             return
         end
+        if not (Grid2 and Grid2.ImportProfileIntoKey) then
+            print("|cff00ff96JetUI|r Grid2: Grid2 not fully initialized, skipping.")
+            return
+        end
         local prefix = JetUI.profilePrefix or ""
         for profileKey, profileString in pairs(JetUI.Grid2ProfileStrings) do
             if profileString and profileString ~= "" then
@@ -20,7 +24,5 @@ function JetUI:ImportGrid2(forceImport)
             Grid2ProfileAPI:SetProfile(prefix .. "JetUI DPS")
         end
         JetUIDB.InstalledVersions["Grid2"] = C_AddOns.GetAddOnMetadata("JetUI", "X-Grid2")
-        -- Grid2 requires a reload after import
-        C_UI.Reload()
     end
 end
