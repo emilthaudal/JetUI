@@ -44,7 +44,8 @@ local function MakeBackdropFrame(name, parent, w, h, bgColor)
 end
 
 -- Installer state
-JetUI.Installer = {}
+JetUI = JetUI or {}
+JetUI.Installer = JetUI.Installer or {}
 local Installer = JetUI.Installer
 
 local W, H         = 600, 420
@@ -130,8 +131,7 @@ local function BuildFrame()
         lbl:SetTextColor(C.accent[1], C.accent[2], C.accent[3], C.accent[4])
         lbl:SetPoint("CENTER")
         lbl:SetText(label)
-
-        -- Hover: animate border to accent color over 0.18s
+        btn.label = lbl: animate border to accent color over 0.18s
         local hoverProgress = 0
         btn:SetScript("OnUpdate", function(self, elapsed)
             local target = self.isHovered and 1 or 0
@@ -172,12 +172,7 @@ local function ShowStep(index, pages)
 
     -- Next/Finish label
     local isLast = (index == #pages)
-    -- find nextBtn label fontstring
-    for _, child in pairs({Installer.nextBtn:GetRegions()}) do
-        if child:GetObjectType() == "FontString" then
-            child:SetText(isLast and "Finish" or "Next")
-        end
-    end
+    Installer.nextBtn.label:SetText(isLast and "Finish" or "Next")
 
     -- Run the page's OnShow if present
     if page.OnShow then page.OnShow() end
@@ -194,7 +189,6 @@ function Installer:Open(pages)
         local page = pages[Installer.current]
         if page and page.import then
             page.import()
-            page.status = "Done!"
             Installer.statusLabel:SetText("Done!")
         end
         if Installer.current < #pages then
