@@ -9,15 +9,16 @@ function JetUI:ImportUnhaltedUnitFrames(forceImport)
             print("|cff00ff96JetUI|r UnhaltedUnitFrames: UUFG not available.")
             return
         end
+        local prefix = JetUI.profilePrefix or ""
         for profileKey, profileString in pairs(JetUI.UnhaltedUnitFramesProfileStrings) do
             if profileString and profileString ~= "" then
-                UUFG:ImportUUF(profileString, profileKey)
+                UUFG:ImportUUF(profileString, prefix .. profileKey)
             end
         end
         -- Set DPS profile active by default
         if UUFDB and UUFDB.profileKeys then
             local charName = UnitName("player") .. "-" .. GetRealmName()
-            UUFDB.profileKeys[charName] = "JetUI DPS"
+            UUFDB.profileKeys[charName] = prefix .. "JetUI DPS"
         end
         JetUIDB.InstalledVersions["UnhaltedUnitFrames"] = GetAddOnMetadata("JetUI", "X-UnhaltedUnitFrames")
         -- UUF requires a reload after import

@@ -4,6 +4,10 @@ JetUIDB = JetUIDB or {}
 local ADDON_NAME = "JetUI"
 local ADDON_VERSION = "1.0"
 
+-- Set to "" for release. During testing, profiles are imported under this prefix
+-- so they don't overwrite profiles you're actively developing.
+JetUI.profilePrefix = "TEST_"
+
 -- Version helpers
 local function GetNiceVersionNumber(versionString)
     local major, minor = strsplit(".", versionString or "0.0")
