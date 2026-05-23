@@ -1,4 +1,4 @@
-local HEALER_SPECS = { [65]=true, [256]=true, [257]=true, [105]=true, [264]=true, [270]=true, [1468]=true }
+-- local HEALER_SPECS defined here once SkironCDM API is known and profile activation is implemented
 
 function JetUI:ImportSkironCDM(forceImport)
     if not IsAddOnLoaded("SkironCDM") then return end
@@ -6,6 +6,7 @@ function JetUI:ImportSkironCDM(forceImport)
         -- SkironCDM API TBD. Check addon source for export/import functions.
         -- Once confirmed, import JetUI.SkironCDMProfileStrings here similarly to AyijeCDM.
         print("|cff00ff96JetUI|r SkironCDM: import not yet implemented. Check SkironCDM API.")
-        JetUIDB.InstalledVersions["SkironCDM"] = GetAddOnMetadata("JetUI", "X-SkironCDM")
+        -- Note: InstalledVersions NOT written until import is actually implemented
     end
+    -- TODO: add profile activation (DPS/Healer based on spec) once API is known
 end

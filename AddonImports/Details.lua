@@ -7,6 +7,8 @@ function JetUI:ImportDetails(forceImport)
         end
         _detalhes:ImportProfile(JetUI.DetailsProfileString, "JetUI", true, true)
         JetUIDB.InstalledVersions["Details"] = GetAddOnMetadata("JetUI", "X-Details")
+        _detalhes:ApplyProfile("JetUI")
+    else
+        _detalhes:ApplyProfile("JetUI")
     end
-    _detalhes:ApplyProfile("JetUI")
 end
