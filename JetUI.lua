@@ -182,10 +182,15 @@ SlashCmdList["JETUI"] = function(msg)
         for k, v in pairs(JetUIDB.InstalledVersions or {}) do
             print("  " .. k .. ": " .. tostring(v))
         end
+    elseif cmd == "reset" then
+        JetUIDB = {}
+        print("|cff00ff96JetUI|r SavedVariables cleared. Reloading...")
+        ReloadUI()
     else
         print("|cff00ff96JetUI|r commands:")
         print("  /jetui install  - Force reinstall all profiles")
         print("  /jetui load     - Load profiles for this character")
         print("  /jetui ver      - Show installed versions")
+        print("  /jetui reset    - Clear SavedVariables and reload")
     end
 end
