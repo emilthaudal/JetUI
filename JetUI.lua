@@ -1,4 +1,4 @@
-JetUI = {}
+JetUI = JetUI or {}
 JetUIDB = JetUIDB or {}
 
 local ADDON_NAME = "JetUI"
