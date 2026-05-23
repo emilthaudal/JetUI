@@ -6,10 +6,16 @@ function JetUI:ImportDetails(forceImport)
             print("|cff00ff96JetUI|r Details: no profile string set, skipping.")
             return
         end
-        _detalhes:ImportProfile(JetUI.DetailsProfileString, profileName, true, true)
+        if not (DetailsAPI and DetailsAPI.ImportProfile) then
+            print("|cff00ff96JetUI|r Details: DetailsAPI not available.")
+            return
+        end
+        -- DetailsAPI:ImportProfile handles import + profile switch internally (needReload=false)
+        DetailsAPI:ImportProfile(JetUI.DetailsProfileString, profileName)
         JetUIDB.InstalledVersions["Details"] = C_AddOns.GetAddOnMetadata("JetUI", "X-Details")
-        _detalhes:ApplyProfile(profileName)
     else
-        _detalhes:ApplyProfile(profileName)
+        if DetailsAPI and DetailsAPI.SetProfile then
+            DetailsAPI:SetProfile(profileName)
+        end
     end
 end

@@ -6,18 +6,16 @@ function JetUI:ImportPlater(forceImport)
             print("|cff00ff96JetUI|r Plater: no profile string set, skipping.")
             return
         end
-        local decoded = Plater.DecompressData(JetUI.PlaterProfileString, "print")
-        if decoded then
-            PlaterDB.profiles = PlaterDB.profiles or {}
-            PlaterDB.profiles[profileName] = decoded
-            JetUIDB.InstalledVersions["Plater"] = C_AddOns.GetAddOnMetadata("JetUI", "X-Plater")
-        else
-            print("|cff00ff96JetUI|r Plater: failed to decode profile string.")
+        if not (PlaterAPI and PlaterAPI.ImportProfile) then
+            print("|cff00ff96JetUI|r Plater: PlaterAPI not available.")
             return
         end
-    end
-    -- Activate profile via AceDB
-    if Plater.db then
-        Plater.db:SetProfile(profileName)
+        -- PlaterAPI:ImportProfile handles decode, write AND profile switch internally
+        PlaterAPI:ImportProfile(JetUI.PlaterProfileString, profileName)
+        JetUIDB.InstalledVersions["Plater"] = C_AddOns.GetAddOnMetadata("JetUI", "X-Plater")
+    else
+        if PlaterAPI and PlaterAPI.SetProfile then
+            PlaterAPI:SetProfile(profileName)
+        end
     end
 end
