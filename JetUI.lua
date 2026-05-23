@@ -33,7 +33,7 @@ local function Initialize()
 
     -- Determine which CDM addon is active
     local hasAyijeCDM   = IsAddOnLoaded("Ayije_CDM")
-    local hasSkironCDM  = IsAddOnLoaded("SkironCDM") -- addon name unverified, no public source found
+    local hasSkironCDM  = IsAddOnLoaded("SkironCooldownManager")
     JetUI.cdmAddon = nil
     if hasAyijeCDM and hasSkironCDM then
         JetUI.cdmConflict = true
