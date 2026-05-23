@@ -134,8 +134,30 @@ local function BuildFrame()
     local stepText = header:CreateFontString(nil, "OVERLAY")
     stepText:SetFont(FONT, 11, "OUTLINE")
     stepText:SetTextColor(C.textSecondary[1], C.textSecondary[2], C.textSecondary[3])
-    stepText:SetPoint("RIGHT", header, "RIGHT", -14, 0)
+    stepText:SetPoint("RIGHT", header, "RIGHT", -42, 0)
     Installer.stepText = stepText
+
+    -- Close (X) button
+    local closeBtn = CreateFrame("Button", nil, header)
+    closeBtn:SetSize(28, 28)
+    closeBtn:SetPoint("RIGHT", header, "RIGHT", -8, 0)
+    local closeLbl = closeBtn:CreateFontString(nil, "OVERLAY")
+    closeLbl:SetFont(FONT, 14, "OUTLINE")
+    closeLbl:SetTextColor(C.textSecondary[1], C.textSecondary[2], C.textSecondary[3])
+    closeLbl:SetPoint("CENTER")
+    closeLbl:SetText("✕")
+    local closeHover = 0
+    closeBtn:SetScript("OnUpdate", function(self, elapsed)
+        local target = self.isHovered and 1 or 0
+        closeHover = closeHover + (target - closeHover) * math.min(elapsed / 0.12, 1)
+        closeLbl:SetTextColor(
+            C.textSecondary[1] + (1 - C.textSecondary[1]) * closeHover,
+            C.textSecondary[2] + (0 - C.textSecondary[2]) * closeHover,
+            C.textSecondary[3] + (0 - C.textSecondary[3]) * closeHover)
+    end)
+    closeBtn:SetScript("OnEnter", function(self) self.isHovered = true end)
+    closeBtn:SetScript("OnLeave", function(self) self.isHovered = false end)
+    closeBtn:SetScript("OnClick", function() Installer.frame:Hide() end)
 
     -- ── Content row (main + sidebar) ──────────────────────────────────────────
     local contentRow = CreateFrame("Frame", nil, f)
