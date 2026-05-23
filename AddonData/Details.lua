@@ -1,0 +1,1 @@
+JetUI.DetailsProfileString = "PASTE_DETAILS_PROFILE_STRING_HERE"

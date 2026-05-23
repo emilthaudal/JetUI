@@ -1,0 +1,4 @@
+JetUI.AyijeCDMProfileStrings = {
+    ["JetUI DPS"]    = "PASTE_AYIJE_CDM_DPS_PROFILE_STRING_HERE",
+    ["JetUI Healer"] = "PASTE_AYIJE_CDM_HEALER_PROFILE_STRING_HERE",
+}

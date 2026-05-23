@@ -1,0 +1,1 @@
+JetUI.Grid2ProfileString = "PASTE_GRID2_PROFILE_STRING_HERE"

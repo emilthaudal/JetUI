@@ -1,0 +1,4 @@
+JetUI.SkironCDMProfileStrings = {
+    ["JetUI DPS"]    = "PASTE_SKIRON_CDM_DPS_PROFILE_STRING_HERE",
+    ["JetUI Healer"] = "PASTE_SKIRON_CDM_HEALER_PROFILE_STRING_HERE",
+}

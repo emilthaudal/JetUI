@@ -1,0 +1,1 @@
+JetUI.BuffRemindersProfileString = "PASTE_BUFF_REMINDERS_PROFILE_STRING_HERE"
