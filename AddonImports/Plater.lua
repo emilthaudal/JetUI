@@ -13,12 +13,11 @@ function JetUI:ImportPlater(forceImport)
             JetUIDB.InstalledVersions["Plater"] = C_AddOns.GetAddOnMetadata("JetUI", "X-Plater")
         else
             print("|cff00ff96JetUI|r Plater: failed to decode profile string.")
+            return
         end
     end
-    -- Set the profile active for this character
-    if Plater.SetProfile then
-        Plater.SetProfile(profileName)
-    elseif PlaterDB then
-        PlaterDB.profile_name = profileName
+    -- Activate profile via AceDB
+    if Plater.db then
+        Plater.db:SetProfile(profileName)
     end
 end

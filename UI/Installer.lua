@@ -145,7 +145,7 @@ local function BuildFrame()
     closeLbl:SetFont(FONT, 14, "OUTLINE")
     closeLbl:SetTextColor(C.textSecondary[1], C.textSecondary[2], C.textSecondary[3])
     closeLbl:SetPoint("CENTER")
-    closeLbl:SetText("✕")
+    closeLbl:SetText("X")
     local closeHover = 0
     closeBtn:SetScript("OnUpdate", function(self, elapsed)
         local target = self.isHovered and 1 or 0
@@ -285,7 +285,7 @@ local function BuildSidebar(pages)
             check:SetFont(FONT, 10, "OUTLINE")
             check:SetTextColor(C.accent[1], C.accent[2], C.accent[3])
             check:SetPoint("RIGHT", row, "RIGHT", -6, 0)
-            check:SetText("✓")
+            check:SetText("+")
             check:Hide()
             row.check = check
 
@@ -367,7 +367,7 @@ function Installer:ShowStep(index)
                 page.import()
                 page.imported = true
                 importBtn:Disable()
-                importBtn.label:SetText("Imported ✓")
+                importBtn.label:SetText("Imported +")
                 Installer.statusLabel:SetText("Profile imported successfully.")
                 -- Update sidebar checkmark
                 for _, btn in ipairs(Installer.sidebarBtns) do
