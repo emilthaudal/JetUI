@@ -1,7 +1,7 @@
 local HEALER_SPECS = { [65]=true, [256]=true, [257]=true, [105]=true, [264]=true, [270]=true, [1468]=true }
 
 function JetUI:ImportAyijeCDM(forceImport)
-    if not IsAddOnLoaded("AyijeCDM") then return end
+    if not IsAddOnLoaded("Ayije_CDM") then return end
     if forceImport then
         for profileName, profileString in pairs(JetUI.AyijeCDMProfileStrings or {}) do
             if not profileString:find("^PASTE_") then

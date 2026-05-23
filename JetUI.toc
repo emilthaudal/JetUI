@@ -15,6 +15,7 @@
 ## X-AyijeCDM: 1.0
 ## X-SkironCDM: 1.0
 ## X-MinimapStats: 1.0
+## X-NorskenUI: 1.0
 
 JetUI.lua
 UI\Installer.lua
@@ -27,6 +28,7 @@ AddonData\BuffReminders.lua
 AddonData\AyijeCDM.lua
 AddonData\SkironCDM.lua
 AddonData\MinimapStats.lua
+AddonData\NorskenUI.lua
 AddonImports\Details.lua
 AddonImports\Plater.lua
 AddonImports\Grid2.lua
@@ -36,3 +38,4 @@ AddonImports\BuffReminders.lua
 AddonImports\AyijeCDM.lua
 AddonImports\SkironCDM.lua
 AddonImports\MinimapStats.lua
+AddonImports\NorskenUI.lua

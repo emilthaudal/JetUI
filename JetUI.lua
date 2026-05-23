@@ -32,8 +32,8 @@ local function Initialize()
     local charKey = GetCharKey()
 
     -- Determine which CDM addon is active
-    local hasAyijeCDM   = IsAddOnLoaded("AyijeCDM")
-    local hasSkironCDM  = IsAddOnLoaded("SkironCDM")
+    local hasAyijeCDM   = IsAddOnLoaded("Ayije_CDM")
+    local hasSkironCDM  = IsAddOnLoaded("SkironCDM") -- addon name unverified, no public source found
     JetUI.cdmAddon = nil
     if hasAyijeCDM and hasSkironCDM then
         JetUI.cdmConflict = true
@@ -45,7 +45,7 @@ local function Initialize()
 
     -- Check for out-of-date addons
     local outOfDate = {}
-    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats" }
+    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats", "NorskenUI" }
     for _, tag in ipairs(addonTags) do
         if GetTOCVersion(tag) > GetInstalledVersion(tag) then
             table.insert(outOfDate, tag)
@@ -73,7 +73,7 @@ function JetUI:RunInstall(addonTags)
 end
 
 function JetUI:ForceReinstall()
-    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats" }
+    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats", "NorskenUI" }
     local pages = JetUI:BuildInstallPages(addonTags, true)
     JetUI.Installer:Open(pages)
 end
@@ -84,7 +84,7 @@ function JetUI:UpdateOutOfDateAddons(outOfDate)
 end
 
 function JetUI:SetProfiles()
-    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats" }
+    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats", "NorskenUI" }
     local pages = JetUI:BuildInstallPages(addonTags, false) -- false = activate only, no import
     JetUI.Installer:Open(pages)
 end

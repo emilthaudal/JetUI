@@ -1,14 +1,25 @@
 function JetUI:ImportGrid2(forceImport)
     if not IsAddOnLoaded("Grid2") then return end
     if forceImport then
-        if not JetUI.Grid2ProfileString or JetUI.Grid2ProfileString == "PASTE_GRID2_PROFILE_STRING_HERE" then
-            print("|cff00ff96JetUI|r Grid2: no profile string set, skipping.")
+        if not JetUI.Grid2ProfileStrings then
+            print("|cff00ff96JetUI|r Grid2: no profile strings set, skipping.")
             return
         end
-        -- Grid2 stores profiles in Grid2DB. Import method TBD.
-        -- Confirm SavedVar structure with: /run DevTools_Dump(Grid2DB)
-        -- Then implement the write here.
-        print("|cff00ff96JetUI|r Grid2: import not yet implemented.")
-        -- Note: InstalledVersions NOT written until import is actually implemented
+        if not (Grid2ProfileAPI and Grid2ProfileAPI.ImportProfile) then
+            print("|cff00ff96JetUI|r Grid2: Grid2ProfileAPI not available.")
+            return
+        end
+        for profileKey, profileString in pairs(JetUI.Grid2ProfileStrings) do
+            if profileString and profileString ~= "" then
+                Grid2ProfileAPI:ImportProfile(profileString, profileKey)
+            end
+        end
+        -- Set DPS profile active by default
+        if Grid2ProfileAPI.SetProfile and JetUI.Grid2ProfileStrings["JetUI DPS"] then
+            Grid2ProfileAPI:SetProfile("JetUI DPS")
+        end
+        JetUIDB.InstalledVersions["Grid2"] = GetAddOnMetadata("JetUI", "X-Grid2")
+        -- Grid2 requires a reload after import
+        C_UI.Reload()
     end
 end

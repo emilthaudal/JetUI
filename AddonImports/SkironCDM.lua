@@ -1,5 +1,7 @@
 -- local HEALER_SPECS defined here once SkironCDM API is known and profile activation is implemented
 
+-- NOTE: "SkironCDM" addon name is unverified — no public source found.
+-- Update this string once the correct addon name is confirmed.
 function JetUI:ImportSkironCDM(forceImport)
     if not IsAddOnLoaded("SkironCDM") then return end
     if forceImport then

@@ -1,16 +1,16 @@
 function JetUI:ImportMinimapStats(forceImport)
     if not IsAddOnLoaded("MinimapStats") then return end
-    if not JetUI.MinimapStatsProfileString then
-        -- No profile string — no import. Mark as configured so the installer
-        -- doesn't prompt on every run (manual configuration only).
-        if forceImport then
-            JetUIDB.InstalledVersions["MinimapStats"] = GetAddOnMetadata("JetUI", "X-MinimapStats")
-        end
-        return
-    end
     if forceImport then
-        -- MinimapStats SavedVar structure TBD.
-        print("|cff00ff96JetUI|r MinimapStats: import not yet implemented.")
-        -- Note: InstalledVersions NOT written until import is actually implemented
+        if not JetUI.MinimapStatsProfileString or JetUI.MinimapStatsProfileString == "" then
+            print("|cff00ff96JetUI|r MinimapStats: no profile string set, skipping.")
+            return
+        end
+        if not (MSG and MSG.ImportSavedVariables) then
+            print("|cff00ff96JetUI|r MinimapStats: MSG not available.")
+            return
+        end
+        MSG:ImportSavedVariables(JetUI.MinimapStatsProfileString)
+        JetUIDB.InstalledVersions["MinimapStats"] = GetAddOnMetadata("JetUI", "X-MinimapStats")
+        -- MinimapStats does NOT require a reload
     end
 end

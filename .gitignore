@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# WoW SavedVariables (not part of addon source)
+*.lua.bak
+WTF/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
