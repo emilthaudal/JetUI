@@ -1,7 +1,7 @@
 local HEALER_SPECS = { [65]=true, [256]=true, [257]=true, [105]=true, [264]=true, [270]=true, [1468]=true }
 
 function JetUI:ImportAyijeCDM(forceImport)
-    if not IsAddOnLoaded("Ayije_CDM") then return end
+    if not C_AddOns.IsAddOnLoaded("Ayije_CDM") then return end
     local prefix = JetUI.profilePrefix or ""
     if forceImport then
         for profileName, profileString in pairs(JetUI.AyijeCDMProfileStrings or {}) do
@@ -9,7 +9,7 @@ function JetUI:ImportAyijeCDM(forceImport)
                 Ayije_CDM_API:ImportProfile(profileString, prefix .. profileName)
             end
         end
-        JetUIDB.InstalledVersions["AyijeCDM"] = GetAddOnMetadata("JetUI", "X-AyijeCDM")
+        JetUIDB.InstalledVersions["AyijeCDM"] = C_AddOns.GetAddOnMetadata("JetUI", "X-AyijeCDM")
     end
 
     -- Set active profile: DPS by default, healer if current spec is a healer

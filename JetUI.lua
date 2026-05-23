@@ -15,7 +15,7 @@ local function GetNiceVersionNumber(versionString)
 end
 
 local function GetTOCVersion(addonTag)
-    local v = GetAddOnMetadata(ADDON_NAME, "X-" .. addonTag)
+    local v = C_AddOns.GetAddOnMetadata(ADDON_NAME, "X-" .. addonTag)
     return GetNiceVersionNumber(v)
 end
 
@@ -36,8 +36,8 @@ local function Initialize()
     local charKey = GetCharKey()
 
     -- Determine which CDM addon is active
-    local hasAyijeCDM   = IsAddOnLoaded("Ayije_CDM")
-    local hasSkironCDM  = IsAddOnLoaded("SkironCooldownManager")
+    local hasAyijeCDM   = C_AddOns.IsAddOnLoaded("Ayije_CDM")
+    local hasSkironCDM  = C_AddOns.IsAddOnLoaded("SkironCooldownManager")
     JetUI.cdmAddon = nil
     if hasAyijeCDM and hasSkironCDM then
         JetUI.cdmConflict = true

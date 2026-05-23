@@ -1,5 +1,5 @@
 function JetUI:ImportNorskenUI(forceImport)
-    if not IsAddOnLoaded("NorskenUI") then return end
+    if not C_AddOns.IsAddOnLoaded("NorskenUI") then return end
     local profileName = (JetUI.profilePrefix or "") .. "JetUI"
     if forceImport then
         if not JetUI.NorskenUIProfileString or JetUI.NorskenUIProfileString == "PASTE_NORSKENUI_PROFILE_STRING_HERE" then
@@ -14,7 +14,7 @@ function JetUI:ImportNorskenUI(forceImport)
         if NorskenUIAPI.SetProfile then
             NorskenUIAPI:SetProfile(profileName)
         end
-        JetUIDB.InstalledVersions["NorskenUI"] = GetAddOnMetadata("JetUI", "X-NorskenUI")
+        JetUIDB.InstalledVersions["NorskenUI"] = C_AddOns.GetAddOnMetadata("JetUI", "X-NorskenUI")
         -- NorskenUI requires a reload after import
         C_UI.Reload()
     end

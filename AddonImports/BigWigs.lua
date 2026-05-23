@@ -1,5 +1,5 @@
 function JetUI:ImportBigWigs(forceImport)
-    if not IsAddOnLoaded("BigWigs") then return end
+    if not C_AddOns.IsAddOnLoaded("BigWigs") then return end
     local profileName = (JetUI.profilePrefix or "") .. "JetUI"
     if forceImport then
         if not JetUI.BigWigsProfileString or JetUI.BigWigsProfileString == "PASTE_BIGWIGS_PROFILE_STRING_HERE" then
@@ -8,7 +8,7 @@ function JetUI:ImportBigWigs(forceImport)
         end
         BigWigsAPI.RegisterProfile(profileName, JetUI.BigWigsProfileString, profileName, function()
             BigWigsAPI.SetProfile(profileName)
-            JetUIDB.InstalledVersions["BigWigs"] = GetAddOnMetadata("JetUI", "X-BigWigs")
+            JetUIDB.InstalledVersions["BigWigs"] = C_AddOns.GetAddOnMetadata("JetUI", "X-BigWigs")
         end)
     else
         BigWigsAPI.SetProfile(profileName)

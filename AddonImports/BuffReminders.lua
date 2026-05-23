@@ -1,5 +1,5 @@
 function JetUI:ImportBuffReminders(forceImport)
-    if not IsAddOnLoaded("BuffReminders") then return end
+    if not C_AddOns.IsAddOnLoaded("BuffReminders") then return end
     local profileName = (JetUI.profilePrefix or "") .. "JetUI"
     if forceImport then
         if not JetUI.BuffRemindersProfileString or JetUI.BuffRemindersProfileString == "PASTE_BUFF_REMINDERS_PROFILE_STRING_HERE" then
@@ -7,7 +7,7 @@ function JetUI:ImportBuffReminders(forceImport)
             return
         end
         BuffRemindersAPI:ImportProfile(JetUI.BuffRemindersProfileString, profileName)
-        JetUIDB.InstalledVersions["BuffReminders"] = GetAddOnMetadata("JetUI", "X-BuffReminders")
+        JetUIDB.InstalledVersions["BuffReminders"] = C_AddOns.GetAddOnMetadata("JetUI", "X-BuffReminders")
     end
     BuffRemindersAPI:SetProfile(profileName)
 end

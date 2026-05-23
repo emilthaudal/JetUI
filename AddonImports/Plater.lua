@@ -1,5 +1,5 @@
 function JetUI:ImportPlater(forceImport)
-    if not IsAddOnLoaded("Plater") then return end
+    if not C_AddOns.IsAddOnLoaded("Plater") then return end
     local profileName = (JetUI.profilePrefix or "") .. "JetUI"
     if forceImport then
         if not JetUI.PlaterProfileString or JetUI.PlaterProfileString == "PASTE_PLATER_PROFILE_STRING_HERE" then
@@ -10,7 +10,7 @@ function JetUI:ImportPlater(forceImport)
         if decoded then
             PlaterDB.profiles = PlaterDB.profiles or {}
             PlaterDB.profiles[profileName] = decoded
-            JetUIDB.InstalledVersions["Plater"] = GetAddOnMetadata("JetUI", "X-Plater")
+            JetUIDB.InstalledVersions["Plater"] = C_AddOns.GetAddOnMetadata("JetUI", "X-Plater")
         else
             print("|cff00ff96JetUI|r Plater: failed to decode profile string.")
         end
