@@ -88,9 +88,21 @@ function JetUI:UpdateOutOfDateAddons(outOfDate)
 end
 
 function JetUI:SetProfiles()
+    -- Silently activate profiles for this character without opening the installer
     local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats", "NorskenUI" }
-    local pages = JetUI:BuildInstallPages(addonTags, false) -- false = activate only, no import
-    JetUI.Installer:Open(pages)
+    for _, tag in ipairs(addonTags) do
+        if tag == "AyijeCDM" or tag == "SkironCDM" then
+            if JetUI.cdmAddon == tag then
+                local fn = JetUI["Import" .. tag]
+                if fn then fn(JetUI, false) end
+            end
+        else
+            local fn = JetUI["Import" .. tag]
+            if fn then fn(JetUI, false) end
+        end
+    end
+    local charKey = GetCharKey()
+    JetUIDB.InstalledChars[charKey] = JetUIDB.InstalledVersion or ADDON_VERSION
 end
 
 -- Build a list of installer pages from a list of addon tag names
