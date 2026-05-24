@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "jetui",
+  "project_id": "ed9f33ac-2975-4ba2-91bb-3bc9ff923619"
+}
