@@ -56,16 +56,13 @@ local function Initialize()
         end
     end
 
-    -- Select flow
-    if next(JetUIDB.InstalledVersions) == nil and next(JetUIDB.InstalledChars) == nil then
-        -- First ever run
-        JetUI:RunInstall(addonTags)
-    elseif not JetUIDB.InstalledChars[charKey] then
-        -- Known install, new character
+    -- Select flow (installer never auto-opens; use /jetui install to open it manually)
+    if not JetUIDB.InstalledChars[charKey] then
+        -- First run or new character: silently import and activate profiles
         JetUI:SetProfiles()
     elseif #outOfDate > 0 then
-        -- Update out-of-date addons
-        JetUI:UpdateOutOfDateAddons(outOfDate)
+        -- Silently update out-of-date addons
+        JetUI:SetProfiles()
     else
         -- All good, silent
     end
