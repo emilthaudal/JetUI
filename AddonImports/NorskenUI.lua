@@ -6,28 +6,18 @@ function JetUI:ImportNorskenUI(forceImport)
             print("|cff00ff96JetUI|r NorskenUI: no profile string set, skipping.")
             return
         end
-        -- Profile strings starting with !NRSKNUI1! use LibDeflate format (in-game export).
-        -- Use NRSKNUI.ProfileManager:ImportProfile for this format.
-        -- NorskenUIAPI:ImportProfile is a different API that expects raw Base64/CBOR (WagoUI format).
-        local pm = NRSKNUI and NRSKNUI.ProfileManager
-        if not (pm and pm.ImportProfile) then
-            print("|cff00ff96JetUI|r NorskenUI: ProfileManager not available.")
+        -- Profile strings use Base64/Deflate/CBOR (WagoUI format) via C_EncodingUtil.
+        -- NorskenUIAPI:ImportProfile handles this format and activates the profile automatically.
+        if not (NorskenUIAPI and NorskenUIAPI.ImportProfile) then
+            print("|cff00ff96JetUI|r NorskenUI: NorskenUIAPI not available.")
             return
         end
-        local ok, resultName = pm:ImportProfile(JetUI.NorskenUIProfileString, profileName)
-        if not ok then
-            print("|cff00ff96JetUI|r NorskenUI: import failed - " .. tostring(resultName))
-            return
-        end
-        -- Activate the imported profile
-        if NRSKNUI.db then
-            NRSKNUI.db:SetProfile(resultName or profileName)
-        end
+        NorskenUIAPI:ImportProfile(JetUI.NorskenUIProfileString, profileName)
         JetUIDB.InstalledVersions["NorskenUI"] = C_AddOns.GetAddOnMetadata("JetUI", "X-NorskenUI")
     else
         -- Activate only
-        if NRSKNUI and NRSKNUI.db then
-            NRSKNUI.db:SetProfile(profileName)
+        if NorskenUIAPI and NorskenUIAPI.SetProfile then
+            NorskenUIAPI:SetProfile(profileName)
         end
     end
 end
