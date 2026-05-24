@@ -6,7 +6,7 @@ local ADDON_VERSION = "1.0"
 
 -- Set to "" for release. During testing, profiles are imported under this prefix
 -- so they don't overwrite profiles you're actively developing.
-JetUI.profilePrefix = "TEST_"
+JetUI.profilePrefix = ""
 
 -- Version helpers
 local function GetNiceVersionNumber(versionString)
