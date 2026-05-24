@@ -7,7 +7,7 @@ local function GetCurrentSpecTag()
     end
     -- Fallback: spec ID == tag for most classes (CooldownViewerUtil not available)
     print("|cff00ff96JetUI|r BlizzardCDM: CooldownViewerUtil not available, using specID fallback.")
-    local _, _, _, specID = GetSpecializationInfo(GetSpecialization() or 1)
+    local specID = GetSpecializationInfo(GetSpecialization() or 1)
     return specID
 end
 
@@ -16,7 +16,7 @@ local function GetClassSpecTags()
     local tags = {}
     local numSpecs = GetNumSpecializations()
     for i = 1, numSpecs do
-        local _, _, _, specID = GetSpecializationInfo(i)
+        local specID = GetSpecializationInfo(i)
         if specID then
             table.insert(tags, specID)
         end

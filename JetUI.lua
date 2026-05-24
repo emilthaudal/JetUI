@@ -127,7 +127,7 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
                 local numSpecs = GetNumSpecializations()
                 local specButtons = {}
                 for i = 1, numSpecs do
-                    local _, specName, _, _, _, _, _, specID = GetSpecializationInfo(i)
+                    local specID, specName = GetSpecializationInfo(i)
                     local capturedID = specID
                     specButtons[#specButtons + 1] = {
                         label = specName,
@@ -198,7 +198,7 @@ SlashCmdList["JETUI"] = function(msg)
             local numSpecs = GetNumSpecializations()
             local specButtons = {}
             for i = 1, numSpecs do
-                local _, specName, _, _, _, _, _, specID = GetSpecializationInfo(i)
+                local specID, specName = GetSpecializationInfo(i)
                 local capturedID = specID
                 specButtons[#specButtons + 1] = {
                     label = specName,
