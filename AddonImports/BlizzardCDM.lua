@@ -81,7 +81,7 @@ function JetUI:ImportAllBlizzardCDM(forceImport)
         local prefix = JetUI.profilePrefix or ""
         local profileKey = prefix .. entry.profileKey
         local lm = CooldownViewerSettings:GetLayoutManager()
-        local layouts = lm:GetLayouts and lm:GetLayouts() or {}
+        local layouts = lm.GetLayouts and lm:GetLayouts() or {}
         for _, layout in ipairs(layouts) do
             if layout.name == profileKey then
                 lm:SetActiveLayoutByID(layout.id)

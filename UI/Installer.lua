@@ -317,6 +317,11 @@ end
 local function ClearDynamicBtns()
     for _, b in ipairs(Installer.dynamicBtns) do b:Hide() end
     Installer.dynamicBtns = {}
+    -- Reset statusLabel to default centered position
+    if Installer.statusLabel then
+        Installer.statusLabel:ClearAllPoints()
+        Installer.statusLabel:SetPoint("CENTER", Installer.statusLabel:GetParent(), "CENTER", 0, 10)
+    end
 end
 
 function Installer:ShowStep(index)
@@ -386,6 +391,8 @@ function Installer:ShowStep(index)
         end
     elseif page.buttons then
         importBtn:Hide()
+        -- Move status label up under the title for button pages
+        Installer.statusLabel:SetPoint("TOP", Installer.addonLabel, "BOTTOM", 0, -10)
         local BTN_W, BTN_H, GAP = 160, 26, 6
         local specBtns = {}
         for _, bDef in ipairs(page.buttons) do
@@ -394,7 +401,7 @@ function Installer:ShowStep(index)
             end
         end
         local totalH = #specBtns * (BTN_H + GAP) - GAP
-        local startY = math.floor(totalH / 2) + 10
+        local startY = math.floor(totalH / 2)
         for i, bDef in ipairs(specBtns) do
             local b = MakeButton(bDef.label, importBtn:GetParent(), BTN_W, BTN_H)
             b:ClearAllPoints()
