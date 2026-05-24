@@ -11,17 +11,33 @@ local function GetCurrentSpecTag()
     return specID
 end
 
--- Returns a list of classAndSpecTag integers for every spec of the player's class.
+-- Returns a sorted list of CDM tag integers for every spec of the player's class.
+-- Uses the current CDM tag to find class group (same tens digit).
 local function GetClassSpecTags()
+    local currentTag = GetCurrentSpecTag()
+    if not currentTag then return {} end
+    local classGroup = math.floor(currentTag / 10)
     local tags = {}
-    local numSpecs = GetNumSpecializations()
-    for i = 1, numSpecs do
-        local specID = GetSpecializationInfo(i)
-        if specID then
-            table.insert(tags, specID)
+    for tag, _ in pairs(JetUI.BlizzardCDMProfiles or {}) do
+        if math.floor(tag / 10) == classGroup then
+            table.insert(tags, tag)
         end
     end
+    table.sort(tags)
     return tags
+end
+
+-- Returns {cdmTag, label} pairs for all specs of the player's current class.
+-- Used by JetUI.lua to build spec import buttons.
+function JetUI.GetBlizzardCDMSpecsForPlayer()
+    local tags = GetClassSpecTags()
+    local result = {}
+    for _, tag in ipairs(tags) do
+        local entry = (JetUI.BlizzardCDMProfiles or {})[tag]
+        local label = entry and entry.profileKey:gsub("^JetUI %- ", "") or tostring(tag)
+        table.insert(result, { cdmTag = tag, label = label })
+    end
+    return result
 end
 
 -- Import and activate a single spec's profile. specTag is a classAndSpecTag integer.

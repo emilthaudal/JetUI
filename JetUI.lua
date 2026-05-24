@@ -124,15 +124,13 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
             end
         elseif tag == "BlizzardCDM" then
             if CooldownViewerSettings then
-                local numSpecs = GetNumSpecializations()
                 local specButtons = {}
-                for i = 1, numSpecs do
-                    local specID, specName = GetSpecializationInfo(i)
-                    local capturedID = specID
+                for _, spec in ipairs(JetUI.GetBlizzardCDMSpecsForPlayer()) do
+                    local capturedTag = spec.cdmTag
                     specButtons[#specButtons + 1] = {
-                        label = specName,
+                        label = spec.label,
                         fn    = function()
-                            JetUI:ImportBlizzardCDMSpec(capturedID, true)
+                            JetUI:ImportBlizzardCDMSpec(capturedTag, true)
                         end,
                     }
                 end
@@ -195,15 +193,13 @@ SlashCmdList["JETUI"] = function(msg)
         JetUI:ForceReinstall()
     elseif cmd == "cdm" then
         if CooldownViewerSettings then
-            local numSpecs = GetNumSpecializations()
             local specButtons = {}
-            for i = 1, numSpecs do
-                local specID, specName = GetSpecializationInfo(i)
-                local capturedID = specID
+            for _, spec in ipairs(JetUI.GetBlizzardCDMSpecsForPlayer()) do
+                local capturedTag = spec.cdmTag
                 specButtons[#specButtons + 1] = {
-                    label = specName,
+                    label = spec.label,
                     fn    = function()
-                        JetUI:ImportBlizzardCDMSpec(capturedID, true)
+                        JetUI:ImportBlizzardCDMSpec(capturedTag, true)
                     end,
                 }
             end
