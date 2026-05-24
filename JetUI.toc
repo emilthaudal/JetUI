@@ -5,6 +5,8 @@
 ## Notes: JetUI Installer
 ## DefaultState: enabled
 ## SavedVariables: JetUIDB
+## X-Curse-Project-ID: 1552378
+## X-Wago-ID: 56nd1DG9
 
 ## X-Details: 1.0
 ## X-Plater: 1.0

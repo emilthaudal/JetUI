@@ -1,0 +1,3 @@
+package-as: JetUI
+
+enable-nolib-creation: no
