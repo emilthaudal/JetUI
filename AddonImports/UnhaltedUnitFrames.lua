@@ -10,15 +10,15 @@ function JetUI:ImportUnhaltedUnitFrames(forceImport)
             return
         end
         local prefix = JetUI.profilePrefix or ""
-        for profileKey, profileString in pairs(JetUI.UnhaltedUnitFramesProfileStrings) do
-            if profileString and profileString ~= "" then
-                UUFG:ImportUUF(profileString, prefix .. profileKey)
-            end
+        -- Import all profiles; UUFG:ImportUUF writes to UUF.db.profiles and calls UUF.db:SetProfile internally
+        -- Import DPS last so it ends up as the active profile
+        if JetUI.UnhaltedUnitFramesProfileStrings["JetUI Healer"] then
+            local s = JetUI.UnhaltedUnitFramesProfileStrings["JetUI Healer"]
+            if s ~= "" then UUFG:ImportUUF(s, prefix .. "JetUI Healer") end
         end
-        -- Set DPS profile active by default
-        if UUFDB and UUFDB.profileKeys then
-            local charName = UnitName("player") .. "-" .. GetRealmName()
-            UUFDB.profileKeys[charName] = prefix .. "JetUI DPS"
+        if JetUI.UnhaltedUnitFramesProfileStrings["JetUI DPS"] then
+            local s = JetUI.UnhaltedUnitFramesProfileStrings["JetUI DPS"]
+            if s ~= "" then UUFG:ImportUUF(s, prefix .. "JetUI DPS") end
         end
         JetUIDB.InstalledVersions["UnhaltedUnitFrames"] = C_AddOns.GetAddOnMetadata("JetUI", "X-UnhaltedUnitFrames")
     end
