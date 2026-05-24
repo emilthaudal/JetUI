@@ -218,6 +218,7 @@ local function BuildFrame()
     Installer.sidebar       = sidebar
     Installer.sidebarTitle  = sidebarTitle
     Installer.sidebarBtns   = {}
+    Installer.dynamicBtns   = {}
 
     -- ── Footer ────────────────────────────────────────────────────────────────
     local footer = MakeBackdropFrame(nil, f, W, FOOTER_H, C.bgMedium)
@@ -313,6 +314,11 @@ local function BuildSidebar(pages)
 end
 
 -- ── ShowStep ──────────────────────────────────────────────────────────────────
+local function ClearDynamicBtns()
+    for _, b in ipairs(Installer.dynamicBtns) do b:Hide() end
+    Installer.dynamicBtns = {}
+end
+
 function Installer:ShowStep(index)
     local pages = Installer.pages
     local page  = pages[index]
@@ -347,6 +353,7 @@ function Installer:ShowStep(index)
 
     -- Import button
     local importBtn = Installer.importBtn
+    ClearDynamicBtns()
     if page.isDone then
         -- Done page: show "Reload UI" button
         importBtn:Show()
@@ -376,6 +383,45 @@ function Installer:ShowStep(index)
                     end
                 end
             end)
+        end
+    elseif page.buttons then
+        importBtn:Hide()
+        local BTN_W, BTN_H, GAP = 160, 26, 6
+        local specBtns = {}
+        for _, bDef in ipairs(page.buttons) do
+            if not bDef.isImportAll then
+                table.insert(specBtns, bDef)
+            end
+        end
+        local totalH = #specBtns * (BTN_H + GAP) - GAP
+        local startY = math.floor(totalH / 2) + 10
+        for i, bDef in ipairs(specBtns) do
+            local b = MakeButton(bDef.label, importBtn:GetParent(), BTN_W, BTN_H)
+            b:ClearAllPoints()
+            local yOff = startY - (i - 1) * (BTN_H + GAP)
+            b:SetPoint("CENTER", importBtn:GetParent(), "CENTER", 0, yOff)
+            local fn = bDef.fn
+            b:SetScript("OnClick", function()
+                fn()
+                b:Disable()
+            end)
+            table.insert(Installer.dynamicBtns, b)
+            b:Show()
+        end
+        for _, bDef in ipairs(page.buttons) do
+            if bDef.isImportAll then
+                local b = MakeButton(bDef.label, importBtn:GetParent(), BTN_W, BTN_H)
+                b:ClearAllPoints()
+                b:SetPoint("CENTER", importBtn:GetParent(), "CENTER", 0, -startY - BTN_H - GAP)
+                local fn = bDef.fn
+                b:SetScript("OnClick", function()
+                    fn()
+                    for _, db in ipairs(Installer.dynamicBtns) do db:Disable() end
+                    b:Disable()
+                end)
+                table.insert(Installer.dynamicBtns, b)
+                b:Show()
+            end
         end
     else
         importBtn:Hide()

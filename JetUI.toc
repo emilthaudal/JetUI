@@ -16,6 +16,7 @@
 ## X-BuffReminders: 1.0
 ## X-AyijeCDM: 1.0
 ## X-SkironCDM: 1.0
+## X-BlizzardCDM: 1.0
 ## X-MinimapStats: 1.0
 ## X-NorskenUI: 1.0
 
@@ -29,6 +30,7 @@ AddonData\BigWigs.lua
 AddonData\BuffReminders.lua
 AddonData\AyijeCDM.lua
 AddonData\SkironCDM.lua
+AddonData\BlizzardCDM.lua
 AddonData\MinimapStats.lua
 AddonData\NorskenUI.lua
 AddonImports\Details.lua
@@ -39,5 +41,6 @@ AddonImports\BigWigs.lua
 AddonImports\BuffReminders.lua
 AddonImports\AyijeCDM.lua
 AddonImports\SkironCDM.lua
+AddonImports\BlizzardCDM.lua
 AddonImports\MinimapStats.lua
 AddonImports\NorskenUI.lua

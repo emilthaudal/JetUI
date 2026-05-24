@@ -55,7 +55,7 @@ function JetUI:RunInstall(addonTags)
 end
 
 function JetUI:ForceReinstall()
-    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats", "NorskenUI" }
+    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "BlizzardCDM", "MinimapStats", "NorskenUI" }
     local pages = JetUI:BuildInstallPages(addonTags, true)
     JetUI.Installer:Open(pages)
 end
@@ -67,7 +67,7 @@ end
 
 function JetUI:SetProfiles()
     -- Silently activate profiles for this character without opening the installer
-    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats", "NorskenUI" }
+    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "BlizzardCDM", "MinimapStats", "NorskenUI" }
     for _, tag in ipairs(addonTags) do
         if tag == "AyijeCDM" or tag == "SkironCDM" then
             if JetUI.cdmAddon == tag then
@@ -122,6 +122,34 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
                     end,
                 })
             end
+        elseif tag == "BlizzardCDM" then
+            if C_AddOns.IsAddOnLoaded("Blizzard_CooldownManager") then
+                local numSpecs = GetNumSpecializations()
+                local specButtons = {}
+                for i = 1, numSpecs do
+                    local _, specName, _, _, _, _, _, specID = GetSpecializationInfo(i)
+                    local capturedID = specID
+                    specButtons[#specButtons + 1] = {
+                        label = specName,
+                        fn    = function()
+                            JetUI:ImportBlizzardCDMSpec(capturedID, true)
+                        end,
+                    }
+                end
+                specButtons[#specButtons + 1] = {
+                    label       = "Import All",
+                    isImportAll = true,
+                    fn          = function()
+                        JetUI:ImportAllBlizzardCDM(true)
+                    end,
+                }
+                table.insert(pages, {
+                    title        = "Blizzard CDM",
+                    sidebarLabel = "Blizzard CDM",
+                    status       = "Import your spec's cooldown layout.\nBlizzard CDM only allows importing your current class.",
+                    buttons      = specButtons,
+                })
+            end
         else
             table.insert(pages, {
                 title        = tag,
@@ -165,6 +193,44 @@ SlashCmdList["JETUI"] = function(msg)
     local cmd = strtrim(strlower(msg or ""))
     if cmd == "install" then
         JetUI:ForceReinstall()
+    elseif cmd == "cdm" then
+        if C_AddOns.IsAddOnLoaded("Blizzard_CooldownManager") then
+            local numSpecs = GetNumSpecializations()
+            local specButtons = {}
+            for i = 1, numSpecs do
+                local _, specName, _, _, _, _, _, specID = GetSpecializationInfo(i)
+                local capturedID = specID
+                specButtons[#specButtons + 1] = {
+                    label = specName,
+                    fn    = function()
+                        JetUI:ImportBlizzardCDMSpec(capturedID, true)
+                    end,
+                }
+            end
+            specButtons[#specButtons + 1] = {
+                label       = "Import All",
+                isImportAll = true,
+                fn          = function()
+                    JetUI:ImportAllBlizzardCDM(true)
+                end,
+            }
+            local pages = {
+                {
+                    title        = "Blizzard CDM",
+                    sidebarLabel = "Blizzard CDM",
+                    status       = "Import your spec's cooldown layout.\nBlizzard CDM only allows importing your current class.",
+                    buttons      = specButtons,
+                },
+                {
+                    title  = "All Done!",
+                    status = "Blizzard CDM profiles imported.\nClick Reload UI to apply changes.",
+                    isDone = true,
+                },
+            }
+            JetUI.Installer:Open(pages)
+        else
+            print("|cff00ff96JetUI|r Blizzard_CooldownManager is not loaded.")
+        end
     elseif cmd == "load" then
         JetUI:SetProfiles()
     elseif cmd == "ver" then
@@ -179,6 +245,7 @@ SlashCmdList["JETUI"] = function(msg)
     else
         print("|cff00ff96JetUI|r commands:")
         print("  /jetui install  - Force reinstall all profiles")
+        print("  /jetui cdm      - Import Blizzard CDM spell layouts")
         print("  /jetui load     - Load profiles for this character")
         print("  /jetui ver      - Show installed versions")
         print("  /jetui reset    - Clear SavedVariables and reload")
