@@ -6,8 +6,8 @@
 JetUI.BlizzardCDMProfiles = {
     -- Death Knight
     [250] = { profileKey = "JetUI - Blood DK",       profileString = "PASTE_BLOOD_DK_PROFILE_STRING_HERE" },
-    [251] = { profileKey = "JetUI - Unholy DK",      profileString = "PASTE_UNHOLY_DK_PROFILE_STRING_HERE" },
-    [252] = { profileKey = "JetUI - Frost DK",       profileString = "PASTE_FROST_DK_PROFILE_STRING_HERE" },
+    [251] = { profileKey = "JetUI - Frost DK",       profileString = "PASTE_FROST_DK_PROFILE_STRING_HERE" },
+    [252] = { profileKey = "JetUI - Unholy DK",      profileString = "PASTE_UNHOLY_DK_PROFILE_STRING_HERE" },
     -- Demon Hunter
     [577] = { profileKey = "JetUI - Havoc DH",       profileString = "PASTE_HAVOC_DH_PROFILE_STRING_HERE" },
     [581] = { profileKey = "JetUI - Vengeance DH",   profileString = "PASTE_VENGEANCE_DH_PROFILE_STRING_HERE" },
