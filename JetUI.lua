@@ -33,8 +33,6 @@ local function Initialize()
     JetUIDB.InstalledVersions = JetUIDB.InstalledVersions or {}
     JetUIDB.InstalledChars    = JetUIDB.InstalledChars    or {}
 
-    local charKey = GetCharKey()
-
     -- Determine which CDM addon is active
     local hasAyijeCDM   = C_AddOns.IsAddOnLoaded("Ayije_CDM")
     local hasSkironCDM  = C_AddOns.IsAddOnLoaded("SkironCooldownManager")
@@ -47,25 +45,8 @@ local function Initialize()
         JetUI.cdmAddon = "SkironCDM"
     end
 
-    -- Check for out-of-date addons
-    local outOfDate = {}
-    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "MinimapStats", "NorskenUI" }
-    for _, tag in ipairs(addonTags) do
-        if GetTOCVersion(tag) > GetInstalledVersion(tag) then
-            table.insert(outOfDate, tag)
-        end
-    end
-
-    -- Select flow (installer never auto-opens; use /jetui install to open it manually)
-    if not JetUIDB.InstalledChars[charKey] then
-        -- First run or new character: silently import and activate profiles
-        JetUI:SetProfiles()
-    elseif #outOfDate > 0 then
-        -- Silently update out-of-date addons
-        JetUI:SetProfiles()
-    else
-        -- All good, silent
-    end
+    -- Nothing happens automatically on login.
+    -- Use /jetui install to open the installer and import profiles manually.
 end
 
 function JetUI:RunInstall(addonTags)
