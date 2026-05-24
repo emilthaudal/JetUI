@@ -123,7 +123,7 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
                 })
             end
         elseif tag == "BlizzardCDM" then
-            if C_AddOns.IsAddOnLoaded("Blizzard_CooldownManager") then
+            if CooldownViewerSettings then
                 local numSpecs = GetNumSpecializations()
                 local specButtons = {}
                 for i = 1, numSpecs do
@@ -194,7 +194,7 @@ SlashCmdList["JETUI"] = function(msg)
     if cmd == "install" then
         JetUI:ForceReinstall()
     elseif cmd == "cdm" then
-        if C_AddOns.IsAddOnLoaded("Blizzard_CooldownManager") then
+        if CooldownViewerSettings then
             local numSpecs = GetNumSpecializations()
             local specButtons = {}
             for i = 1, numSpecs do
@@ -229,7 +229,7 @@ SlashCmdList["JETUI"] = function(msg)
             }
             JetUI.Installer:Open(pages)
         else
-            print("|cff00ff96JetUI|r Blizzard_CooldownManager is not loaded.")
+            print("|cff00ff96JetUI|r Blizzard Cooldown Manager is not available.")
         end
     elseif cmd == "load" then
         JetUI:SetProfiles()
