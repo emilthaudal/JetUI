@@ -55,7 +55,7 @@ function JetUI:RunInstall(addonTags)
 end
 
 function JetUI:ForceReinstall()
-    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "BlizzardCDM", "MinimapStats", "NorskenUI" }
+    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "BlizzardCDM", "MinimapStats", "NorskenUI", "EditMode" }
     local pages = JetUI:BuildInstallPages(addonTags, true)
     JetUI.Installer:Open(pages)
 end
@@ -67,7 +67,7 @@ end
 
 function JetUI:SetProfiles()
     -- Silently activate profiles for this character without opening the installer
-    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "BlizzardCDM", "MinimapStats", "NorskenUI" }
+    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "BlizzardCDM", "MinimapStats", "NorskenUI", "EditMode" }
     for _, tag in ipairs(addonTags) do
         if tag == "AyijeCDM" or tag == "SkironCDM" then
             if JetUI.cdmAddon == tag then

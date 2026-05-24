@@ -19,6 +19,7 @@
 ## X-BlizzardCDM: 1.0
 ## X-MinimapStats: 1.0
 ## X-NorskenUI: 1.0
+## X-EditMode: 1.0
 
 JetUI.lua
 UI\Installer.lua
@@ -33,6 +34,7 @@ AddonData\SkironCDM.lua
 AddonData\BlizzardCDM.lua
 AddonData\MinimapStats.lua
 AddonData\NorskenUI.lua
+AddonData\EditMode.lua
 AddonImports\Details.lua
 AddonImports\Plater.lua
 AddonImports\Grid2.lua
@@ -44,3 +46,4 @@ AddonImports\SkironCDM.lua
 AddonImports\BlizzardCDM.lua
 AddonImports\MinimapStats.lua
 AddonImports\NorskenUI.lua
+AddonImports\EditMode.lua
