@@ -46,19 +46,44 @@ local function Initialize()
     end
 
     -- On a fresh character (never set up with JetUI), apply a sensible default
-    -- UI scale so the UI is usable before profiles are imported. Once the
-    -- character appears in InstalledChars (after /jetui install or /jetui load),
-    -- this never runs again and other addons (e.g. UUF) control the scale freely.
-    local charKey = GetCharKey()
-    if not JetUIDB.InstalledChars[charKey] then
-        UIParent:SetScale(0.5333333333333)
-    end
+    -- UI scale so the UI is usable before profiles are imported. Deferred one
+    -- frame to run after all addon OnEnable handlers (including UUF's SetUIScale).
+    -- Auto-open flows: defer one frame so the installer frame exists and all
+    -- OnEnable handlers have fired.
+    C_Timer.After(0, function()
+        local charKey = GetCharKey()
+        if not JetUIDB.InstalledChars[charKey] then
+            UIParent:SetScale(0.5333333333333)
+        end
+        local hasAnyChar = next(JetUIDB.InstalledChars) ~= nil
+        if not hasAnyChar then
+            -- Fresh account: open full installer
+            JetUI:ForceReinstall()
+        elseif not JetUIDB.InstalledChars[charKey] then
+            -- Known account, new character: open load UI
+            JetUI:RunLoadUI()
+        end
+    end)
 
-    -- Nothing happens automatically on login.
-    -- Use /jetui install to open the installer and import profiles manually.
+    -- Print a hint so users know the addon is active
+    print("|cff00ff96JetUI|r is active. Type |cffffff00/jetui|r for commands.")
 end
 
-function JetUI:RunInstall(addonTags)
+function JetUI:RunLoadUI()
+    local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "BlizzardCDM", "MinimapStats", "NorskenUI", "EditMode" }
+    local pages = JetUI:BuildInstallPages(addonTags, false, "Load")
+    -- Patch the welcome and done page text for the load flow
+    pages[1].title  = "JetUI Load Profiles"
+    pages[1].status = "Select an addon from the list, then click Load to activate its profile."
+    for _, page in ipairs(pages) do
+        if page.isDone then
+            page.status = "All profiles activated.\nClick Reload UI to apply changes."
+            break
+        end
+    end
+    JetUI.Installer:Open(pages)
+end
+
     local pages = JetUI:BuildInstallPages(addonTags, true)
     JetUI.Installer:Open(pages)
 end
@@ -96,7 +121,8 @@ end
 
 -- Build a list of installer pages from a list of addon tag names
 -- forceImport = true: import profiles; false: activate/set profiles only
-function JetUI:BuildInstallPages(addonTags, forceImport)
+-- buttonLabel: optional label override for the import button (default "Import")
+function JetUI:BuildInstallPages(addonTags, forceImport, buttonLabel)
     local pages = {}
 
     -- Welcome page (no sidebarLabel = not shown in sidebar)
@@ -120,11 +146,13 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
             if JetUI.cdmConflict or JetUI.cdmAddon ~= tag then
                 -- skip
             else
+                local lbl = buttonLabel or (forceImport and "Import" or "Load")
                 table.insert(pages, {
                     title        = tag,
                     sidebarLabel = tag,
                     alreadyInstalled = (GetInstalledVersion(tag) >= GetTOCVersion(tag) and GetTOCVersion(tag) > 0),
-                    status       = forceImport and "Click Import to install this profile." or "Click Import to activate this profile.",
+                    status       = "Click " .. lbl .. " to " .. (forceImport and "install" or "activate") .. " this profile.",
+                    importLabel  = lbl,
                     import       = forceImport and function()
                         local fn = JetUI["Import" .. tag]
                         if fn then fn(JetUI, true) end
@@ -161,11 +189,13 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
                 })
             end
         else
+            local lbl = buttonLabel or (forceImport and "Import" or "Load")
             table.insert(pages, {
                 title           = tag,
                 sidebarLabel    = tag,
                 alreadyInstalled = (GetInstalledVersion(tag) >= GetTOCVersion(tag) and GetTOCVersion(tag) > 0),
-                status       = forceImport and "Click Import to install this profile." or "Click Import to activate this profile.",
+                status       = "Click " .. lbl .. " to " .. (forceImport and "install" or "activate") .. " this profile.",
+                importLabel  = lbl,
                 import       = function()
                     local fn = JetUI["Import" .. tag]
                     if fn then fn(JetUI, forceImport) end
@@ -241,7 +271,7 @@ SlashCmdList["JETUI"] = function(msg)
             print("|cff00ff96JetUI|r Blizzard Cooldown Manager is not available.")
         end
     elseif cmd == "load" then
-        JetUI:SetProfiles()
+        JetUI:RunLoadUI()
     elseif cmd == "ver" then
         print("|cff00ff96JetUI|r version " .. ADDON_VERSION)
         for k, v in pairs(JetUIDB.InstalledVersions or {}) do

@@ -28,8 +28,11 @@ function JetUI:ImportUnhaltedUnitFrames(forceImport)
         -- Format must match AceDB: "Name - Realm" (spaces around dash).
         local prefix = JetUI.profilePrefix or ""
         local characterName = UnitName("player") .. " - " .. GetRealmName()
-        if UUFDB and UUFDB.profileKeys then
+        if UUFDB then
+            UUFDB.profileKeys = UUFDB.profileKeys or {}
             UUFDB.profileKeys[characterName] = prefix .. "JetUI DPS"
+        else
+            print("|cff00ff96JetUI|r UnhaltedUnitFrames: UUFDB not available, cannot set profile.")
         end
     end
 end

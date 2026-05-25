@@ -374,12 +374,12 @@ function Installer:ShowStep(index)
     elseif page.import then
         importBtn:Show()
         importBtn:Enable()
-        importBtn.label:SetText("Import")
+        importBtn.label:SetText(page.importLabel or "Import")
         importBtn:SetScript("OnClick", function()
                 page.import()
                 page.imported = true
                 importBtn:Disable()
-                importBtn.label:SetText("Imported +")
+                importBtn.label:SetText((page.importLabel or "Import") .. " ✓")
                 Installer.statusLabel:SetText("Profile imported successfully.")
                 -- Update sidebar checkmark
                 for _, btn in ipairs(Installer.sidebarBtns) do
