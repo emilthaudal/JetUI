@@ -66,6 +66,7 @@ function JetUI:ImportBlizzardCDMSpec(specTag, activate)
     local layoutIDs = lm:CreateLayoutsFromSerializedData(entry.profileString)
     if layoutIDs and #layoutIDs > 0 then
         if lm.RenameLayout then lm:RenameLayout(layoutIDs[1], profileKey) end
+        lm:SaveLayouts()
         if activate then
             lm:SetActiveLayoutByID(layoutIDs[1])
         end
