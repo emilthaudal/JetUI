@@ -15,6 +15,19 @@ function JetUI:ImportGrid2(forceImport)
             return
         end
 
+        local function DoImportNow()
+            local prefix = JetUI.profilePrefix or ""
+            for profileKey, profileString in pairs(JetUI.Grid2ProfileStrings) do
+                if profileString and profileString ~= "" then
+                    Grid2ProfileAPI:ImportProfile(profileString, prefix .. profileKey)
+                end
+            end
+            if Grid2ProfileAPI.SetProfile and JetUI.Grid2ProfileStrings["JetUI DPS"] then
+                Grid2ProfileAPI:SetProfile(prefix .. "JetUI DPS")
+            end
+            JetUIDB.InstalledVersions["Grid2"] = C_AddOns.GetAddOnMetadata("JetUI", "X-Grid2")
+        end
+
         local function TryImport()
             if not DoGrid2Import() then
                 print("|cff00ff96JetUI|r Grid2: API not ready, will retry on ADDON_LOADED.")
@@ -29,31 +42,12 @@ function JetUI:ImportGrid2(forceImport)
                             print("|cff00ff96JetUI|r Grid2: API still not ready after ADDON_LOADED, skipping.")
                             return
                         end
-                        local prefix = JetUI.profilePrefix or ""
-                        for profileKey, profileString in pairs(JetUI.Grid2ProfileStrings) do
-                            if profileString and profileString ~= "" then
-                                Grid2ProfileAPI:ImportProfile(profileString, prefix .. profileKey)
-                            end
-                        end
-                        if Grid2ProfileAPI.SetProfile and JetUI.Grid2ProfileStrings["JetUI DPS"] then
-                            Grid2ProfileAPI:SetProfile(prefix .. "JetUI DPS")
-                        end
-                        JetUIDB.InstalledVersions["Grid2"] = C_AddOns.GetAddOnMetadata("JetUI", "X-Grid2")
+                        DoImportNow()
                     end
                 end)
                 return
             end
-
-            local prefix = JetUI.profilePrefix or ""
-            for profileKey, profileString in pairs(JetUI.Grid2ProfileStrings) do
-                if profileString and profileString ~= "" then
-                    Grid2ProfileAPI:ImportProfile(profileString, prefix .. profileKey)
-                end
-            end
-            if Grid2ProfileAPI.SetProfile and JetUI.Grid2ProfileStrings["JetUI DPS"] then
-                Grid2ProfileAPI:SetProfile(prefix .. "JetUI DPS")
-            end
-            JetUIDB.InstalledVersions["Grid2"] = C_AddOns.GetAddOnMetadata("JetUI", "X-Grid2")
+            DoImportNow()
         end
 
         TryImport()

@@ -81,6 +81,8 @@ function JetUI:SetProfiles()
     end
     local charKey = GetCharKey()
     JetUIDB.InstalledChars[charKey] = JetUIDB.InstalledVersion or ADDON_VERSION
+    print("|cff00ff96JetUI|r Profiles loaded. Reloading UI...")
+    ReloadUI()
 end
 
 -- Build a list of installer pages from a list of addon tag names
@@ -150,8 +152,9 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
             end
         else
             table.insert(pages, {
-                title        = tag,
-                sidebarLabel = tag,
+                title           = tag,
+                sidebarLabel    = tag,
+                alreadyInstalled = (GetInstalledVersion(tag) >= GetTOCVersion(tag) and GetTOCVersion(tag) > 0),
                 status       = forceImport and "Click Import to install this profile." or "Click Import to activate this profile.",
                 import       = function()
                     local fn = JetUI["Import" .. tag]

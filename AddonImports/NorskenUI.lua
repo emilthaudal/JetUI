@@ -12,12 +12,19 @@ function JetUI:ImportNorskenUI(forceImport)
             print("|cff00ff96JetUI|r NorskenUI: NorskenUIAPI not available.")
             return
         end
-        NorskenUIAPI:ImportProfile(JetUI.NorskenUIProfileString, profileName)
+        local ok, err = pcall(NorskenUIAPI.ImportProfile, NorskenUIAPI, JetUI.NorskenUIProfileString, profileName)
+        if not ok then
+            print("|cff00ff96JetUI|r NorskenUI: import error: " .. tostring(err))
+            return
+        end
         JetUIDB.InstalledVersions["NorskenUI"] = C_AddOns.GetAddOnMetadata("JetUI", "X-NorskenUI")
     else
         -- Activate only
         if NorskenUIAPI and NorskenUIAPI.SetProfile then
-            NorskenUIAPI:SetProfile(profileName)
+            local ok, err = pcall(NorskenUIAPI.SetProfile, NorskenUIAPI, profileName)
+            if not ok then
+                print("|cff00ff96JetUI|r NorskenUI: SetProfile error: " .. tostring(err))
+            end
         end
     end
 end
