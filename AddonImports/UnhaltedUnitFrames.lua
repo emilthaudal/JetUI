@@ -22,11 +22,14 @@ function JetUI:ImportUnhaltedUnitFrames(forceImport)
         end
         JetUIDB.InstalledVersions["UnhaltedUnitFrames"] = C_AddOns.GetAddOnMetadata("JetUI", "X-UnhaltedUnitFrames")
     else
-        -- Activate only: switch to JetUI DPS profile
-        -- UUFG has no SetProfile method; use AceDB directly
+        -- Activate only: write the character→profile mapping directly into
+        -- AceDB's profileKeys table (wagoUI pattern). AceDB reads this on
+        -- next initialization (after ReloadUI) and loads the correct profile.
+        -- Format must match AceDB: "Name - Realm" (spaces around dash).
         local prefix = JetUI.profilePrefix or ""
-        if UUF and UUF.db and UUF.db.SetProfile then
-            UUF.db:SetProfile(prefix .. "JetUI DPS")
+        local characterName = UnitName("player") .. " - " .. GetRealmName()
+        if UUFDB and UUFDB.profileKeys then
+            UUFDB.profileKeys[characterName] = prefix .. "JetUI DPS"
         end
     end
 end
