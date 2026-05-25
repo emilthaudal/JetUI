@@ -23,11 +23,9 @@ function JetUI:ImportUnhaltedUnitFrames(forceImport)
         JetUIDB.InstalledVersions["UnhaltedUnitFrames"] = C_AddOns.GetAddOnMetadata("JetUI", "X-UnhaltedUnitFrames")
     else
         -- Activate only: switch to JetUI DPS profile
-        if UUFG and UUFG.SetProfile then
-            local prefix = JetUI.profilePrefix or ""
-            UUFG:SetProfile(prefix .. "JetUI DPS")
-        elseif UUF and UUF.db and UUF.db.SetProfile then
-            local prefix = JetUI.profilePrefix or ""
+        -- UUFG has no SetProfile method; use AceDB directly
+        local prefix = JetUI.profilePrefix or ""
+        if UUF and UUF.db and UUF.db.SetProfile then
             UUF.db:SetProfile(prefix .. "JetUI DPS")
         end
     end
