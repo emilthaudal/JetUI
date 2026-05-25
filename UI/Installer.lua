@@ -309,7 +309,7 @@ local function BuildSidebar(pages)
             row.pageIndex = pageIndex
             table.insert(Installer.sidebarBtns, row)
             -- Show checkmark immediately if this page is already imported/up-to-date
-            if page.imported then
+            if page.alreadyInstalled or page.imported then
                 row.check:Show()
             end
             yOff = yOff - ROW_H - 1
@@ -373,13 +373,9 @@ function Installer:ShowStep(index)
         end)
     elseif page.import then
         importBtn:Show()
-        if page.imported then
-            importBtn:Disable()
-            importBtn.label:SetText("Imported ✓")
-        else
-            importBtn:Enable()
-            importBtn.label:SetText("Import")
-            importBtn:SetScript("OnClick", function()
+        importBtn:Enable()
+        importBtn.label:SetText("Import")
+        importBtn:SetScript("OnClick", function()
                 page.import()
                 page.imported = true
                 importBtn:Disable()
@@ -392,7 +388,6 @@ function Installer:ShowStep(index)
                     end
                 end
             end)
-        end
     elseif page.buttons then
         importBtn:Hide()
         -- Move status label up under the title for button pages
@@ -461,14 +456,6 @@ function Installer:Open(pages)
 
     -- Reset imported state on all pages
     for _, p in ipairs(pages) do p.imported = nil end
-
-    -- Pre-mark pages that were already flagged as up-to-date by BuildInstallPages
-    -- (page.alreadyInstalled is set by the caller when the addon is current)
-    for _, p in ipairs(pages) do
-        if p.alreadyInstalled then
-            p.imported = true
-        end
-    end
 
     Installer.pages   = pages
     Installer.current = 1
