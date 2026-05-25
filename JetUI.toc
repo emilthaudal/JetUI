@@ -10,15 +10,15 @@
 
 ## X-Details: 1.0
 ## X-Plater: 1.0
-## X-Grid2: 1.0
-## X-UnhaltedUnitFrames: 1.0
+## X-Grid2: 1.1
+## X-UnhaltedUnitFrames: 1.1
 ## X-BigWigs: 1.0
 ## X-BuffReminders: 1.0
-## X-AyijeCDM: 1.0
+## X-AyijeCDM: 1.1
 ## X-SkironCDM: 1.0
-## X-BlizzardCDM: 1.0
+## X-BlizzardCDM: 1.1
 ## X-MinimapStats: 1.0
-## X-NorskenUI: 1.0
+## X-NorskenUI: 1.1
 ## X-EditMode: 1.0
 
 JetUI.lua
