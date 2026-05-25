@@ -99,10 +99,6 @@ function JetUI:RunLoadUI()
     JetUI.Installer:Open(pages)
 end
 
-    local pages = JetUI:BuildInstallPages(addonTags, true)
-    JetUI.Installer:Open(pages)
-end
-
 function JetUI:ForceReinstall()
     local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "BlizzardCDM", "MinimapStats", "NorskenUI", "EditMode" }
     local pages = JetUI:BuildInstallPages(addonTags, true)
