@@ -114,6 +114,7 @@ function JetUI:BuildInstallPages(addonTags, forceImport)
                 table.insert(pages, {
                     title        = tag,
                     sidebarLabel = tag,
+                    alreadyInstalled = (GetInstalledVersion(tag) >= GetTOCVersion(tag) and GetTOCVersion(tag) > 0),
                     status       = forceImport and "Click Import to install this profile." or "Click Import to activate this profile.",
                     import       = forceImport and function()
                         local fn = JetUI["Import" .. tag]
