@@ -45,16 +45,8 @@ local function Initialize()
         JetUI.cdmAddon = "SkironCDM"
     end
 
-    -- Re-import CDM profiles on every login if they were previously installed.
-    -- CDM addons (AyijeCDM, SkironCDM) do not persist imported profiles across
-    -- reloads via their own SavedVariables, so we must re-import them each session.
-    if JetUI.cdmAddon and not JetUI.cdmConflict then
-        local cdmTag = JetUI.cdmAddon
-        if JetUIDB.InstalledVersions and JetUIDB.InstalledVersions[cdmTag] then
-            local fn = JetUI["Import" .. cdmTag]
-            if fn then fn(JetUI, true) end
-        end
-    end
+    -- Nothing happens automatically on login.
+    -- Use /jetui install to open the installer and import profiles manually.
 end
 
 function JetUI:RunInstall(addonTags)
