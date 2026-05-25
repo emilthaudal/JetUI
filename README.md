@@ -10,7 +10,9 @@ JetUI is a World of Warcraft addon that installs and manages profiles for a cura
 - **Unhalted Unit Frames (UUF)** — unit frames
 - **BigWigs** — boss timers
 - **Buff Reminders** — buff tracking
-- **Ayije CDM / Skiron CDM / Blizzard CDM** — cooldown manager (one of the three, mutually exclusive)
+- **Blizzard CDM** — Blizzard's built-in Cooldown Manager (required; AyijeCDM and SkironCDM reskin and enhance it)
+- **Ayije CDM** — recommended CDM reskin/enhancer
+- **Skiron CDM** — alternative CDM reskin/enhancer (not recommended; still under development, profiles not finished)
 - **MinimapStats** — minimap resource display
 - **NorskenUI** — skin/theme
 - **Edit Mode** — HUD layout
