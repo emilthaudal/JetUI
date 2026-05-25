@@ -30,18 +30,13 @@ function JetUI:ImportGrid2(forceImport)
 
         local function TryImport()
             if not DoGrid2Import() then
-                print("|cff00ff96JetUI|r Grid2: API not ready, will retry on ADDON_LOADED.")
-                -- Register a one-shot ADDON_LOADED listener to retry
+                -- Grid2 addon may be loaded but Grid2ProfileAPI (from Grid2Options) isn't ready yet.
+                -- Keep listening on ADDON_LOADED until all required globals are present.
                 local retryFrame = CreateFrame("Frame")
                 retryFrame:RegisterEvent("ADDON_LOADED")
                 retryFrame:SetScript("OnEvent", function(self, event, addonName)
-                    if addonName == "Grid2" or DoGrid2Import() then
+                    if DoGrid2Import() then
                         self:UnregisterAllEvents()
-                        -- Re-check after the event fires
-                        if not DoGrid2Import() then
-                            print("|cff00ff96JetUI|r Grid2: API still not ready after ADDON_LOADED, skipping.")
-                            return
-                        end
                         DoImportNow()
                     end
                 end)
