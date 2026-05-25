@@ -45,6 +45,15 @@ local function Initialize()
         JetUI.cdmAddon = "SkironCDM"
     end
 
+    -- On a fresh character (never set up with JetUI), apply a sensible default
+    -- UI scale so the UI is usable before profiles are imported. Once the
+    -- character appears in InstalledChars (after /jetui install or /jetui load),
+    -- this never runs again and other addons (e.g. UUF) control the scale freely.
+    local charKey = GetCharKey()
+    if not JetUIDB.InstalledChars[charKey] then
+        UIParent:SetScale(0.5333333333333)
+    end
+
     -- Nothing happens automatically on login.
     -- Use /jetui install to open the installer and import profiles manually.
 end
