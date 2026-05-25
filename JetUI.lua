@@ -72,9 +72,24 @@ end
 function JetUI:RunLoadUI()
     local addonTags = { "Details", "Plater", "Grid2", "UnhaltedUnitFrames", "BigWigs", "BuffReminders", "AyijeCDM", "SkironCDM", "BlizzardCDM", "MinimapStats", "NorskenUI", "EditMode" }
     local pages = JetUI:BuildInstallPages(addonTags, false, "Load")
-    -- Patch the welcome and done page text for the load flow
-    pages[1].title  = "JetUI Load Profiles"
-    pages[1].status = "Select an addon from the list, then click Load to activate its profile."
+    -- Patch the welcome page for the load flow
+    pages[1].title       = "JetUI Load Profiles"
+    pages[1].status      = "Click Load All to activate all profiles at once,\nor select an addon on the right to load individually."
+    pages[1].importLabel = "Load All"
+    pages[1].import      = function()
+        for _, tag in ipairs(addonTags) do
+            if tag == "AyijeCDM" or tag == "SkironCDM" then
+                if JetUI.cdmAddon == tag then
+                    local fn = JetUI["Import" .. tag]
+                    if fn then fn(JetUI, false) end
+                end
+            elseif tag ~= "BlizzardCDM" then
+                local fn = JetUI["Import" .. tag]
+                if fn then fn(JetUI, false) end
+            end
+        end
+    end
+    -- Patch the done page text
     for _, page in ipairs(pages) do
         if page.isDone then
             page.status = "All profiles activated.\nClick Reload UI to apply changes."
