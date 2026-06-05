@@ -11,10 +11,10 @@
 ## X-Details: 1.0
 ## X-Plater: 1.0
 ## X-Grid2: 1.2
-## X-UnhaltedUnitFrames: 1.4
+## X-UnhaltedUnitFrames: 1.5
 ## X-BigWigs: 1.1
 ## X-BuffReminders: 1.0
-## X-AyijeCDM: 1.5
+## X-AyijeCDM: 1.6
 ## X-SkironCDM: 1.0
 ## X-BlizzardCDM: 1.3
 ## X-MinimapStats: 1.0
