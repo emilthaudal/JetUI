@@ -14,11 +14,11 @@
 ## X-UnhaltedUnitFrames: 1.5
 ## X-BigWigs: 1.1
 ## X-BuffReminders: 1.0
-## X-AyijeCDM: 1.6
+## X-AyijeCDM: 1.7
 ## X-SkironCDM: 1.0
-## X-BlizzardCDM: 1.3
+## X-BlizzardCDM: 1.4
 ## X-MinimapStats: 1.0
-## X-NorskenUI: 1.3
+## X-NorskenUI: 1.4
 ## X-EditMode: 1.3
 
 JetUI.lua
